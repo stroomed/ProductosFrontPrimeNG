@@ -16,7 +16,7 @@ export class ProductoService {
     return this.hc.get<Producto[]>(this.prodUrl + 'listar');
   }
 
-  public detallesID(id: number): Observable<Producto[]> {
+  public detallesID(id: number | undefined): Observable<Producto[]> {
     return this.hc.get<Producto[]>(this.prodUrl + `detalles/${id}`);
   }
 
@@ -28,11 +28,11 @@ export class ProductoService {
     return this.hc.post<any>(this.prodUrl + `crear`, prod);
   }
 
-  public update(id: number, prod: Producto): Observable<any> {
+  public update(id: number | undefined, prod: Producto): Observable<any> {
     return this.hc.put<any>(this.prodUrl + `editar/${id}`, prod);
   }
 
-  public delete(id: number): Observable<any> {
+  public delete(id: number | undefined): Observable<any> {
     return this.hc.delete<any>(this.prodUrl + `borrar/${id}`);
   }
 }
