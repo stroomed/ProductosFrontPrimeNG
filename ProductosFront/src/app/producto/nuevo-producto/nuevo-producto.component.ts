@@ -35,6 +35,7 @@ export class NuevoProductoComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
+        this.router.navigate(['/']);
       }, err => {
         this.toastr.error(
           err.error.mensaje,

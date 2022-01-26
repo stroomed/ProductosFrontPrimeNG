@@ -51,6 +51,7 @@ export class ListaProductoComponent implements OnInit {
             positionClass: 'toast-top-center'
           }
         );
+        this.cargarProductos();
       }
     );
   }
