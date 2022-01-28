@@ -12,7 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 export class ListaProductoComponent implements OnInit {
 
   productos: Producto[] = [];
-  producto: Producto = null;
+  producto: Producto;
+  selectedProduct: Producto;
+  displayDialog: boolean;
+  newProducto: boolean;
+  cols: any[];
 
   constructor(
     private prodServ: ProductoService,
@@ -23,6 +27,10 @@ export class ListaProductoComponent implements OnInit {
 
   ngOnInit() {
     this.cargarProductos();
+    this.cols = [
+      {field: 'nombre', header: 'Nombre'},
+      {field: 'precio', header: 'Precio'}
+    ];
   }
 
   cargarProductos(): void {
@@ -85,6 +93,46 @@ export class ListaProductoComponent implements OnInit {
         this.router.navigate(['/']);
       }
     );
+  }
+
+  showDialogToAdd() {
+    this.newProducto = true;
+    this.producto;
+    this.displayDialog = true;
+  }
+
+  save() {
+    let productos = [...this.productos];
+    if (this.newProducto) {
+      productos.push(this.producto);
+    } else {
+      productos[this.productos.indexOf(this.selectedProduct)] = this.producto;
+    }
+
+    this.productos = productos;
+    this.producto = null;
+    this.displayDialog = false;
+  }
+
+  delete() {
+    let index = this.productos.indexOf(this.selectedProduct);
+    this.productos = this.productos.filter((val, i) => i != index);
+    this.producto = null;
+    this.displayDialog = false;
+  }
+
+  cloneProducto(p: Producto): Producto {
+    let producto;
+    for (let prop in p) {
+      producto[prop] = p[prop];
+    }
+    return producto;
+  }
+
+  onRowSelect(event) {
+    this.newProducto = false;
+    this.producto = this.cloneProducto(event.data);
+    this.displayDialog = true;
   }
 
 }
