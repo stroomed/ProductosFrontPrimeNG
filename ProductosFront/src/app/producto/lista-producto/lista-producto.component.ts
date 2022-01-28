@@ -7,7 +7,14 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-lista-producto',
   templateUrl: './lista-producto.component.html',
-  styleUrls: ['./lista-producto.component.css']
+  styleUrls: ['./lista-producto.component.css'],
+  styles: [`
+        :host ::ng-deep .p-dialog .product-image {
+            width: 150px;
+            margin: 0 auto 2rem auto;
+            display: block;
+        }
+    `]
 })
 export class ListaProductoComponent implements OnInit {
 
